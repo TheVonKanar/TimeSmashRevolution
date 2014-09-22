@@ -1,2 +1,5 @@
 Library/
 Temp/
+Remote/Build/
+*.sln
+*.csproj
