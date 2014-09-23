@@ -3,10 +3,22 @@ using System.Collections;
 
 public class Controller : MonoBehaviour {
 
-    void Update()
+    public void StartInfoUpdate()
     {
-        if (GetComponent<NetworkManager>().IsConnected)
+        InvokeRepeating("UpdateInfos", 1f, 1f);
+    }
+
+    public void CancelInfoUpdate()
+    {
+        CancelInvoke("UpdateInfos");
+    }
+
+    void UpdateInfos()
+    {
+        if (Network.connections.Length > 0)
+        {
             UpdateAcceleration(Input.acceleration);
+        }
     }
 
     [RPC]

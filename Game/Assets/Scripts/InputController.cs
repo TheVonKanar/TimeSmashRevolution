@@ -7,8 +7,8 @@ public class InputController : MonoBehaviour {
 
 	[RPC]
     void UpdateAcceleration(Vector3 acceleration)
-    {
-        
-            playerShip.Acceleration = acceleration;
+    {        
+        playerShip.Acceleration = acceleration;
+        Debug.Log(playerShip.Acceleration);
     }
 }

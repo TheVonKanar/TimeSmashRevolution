@@ -12,10 +12,7 @@ public class NetworkManager : MonoBehaviour {
     private readonly int portgame = 1111;
 
     private UdpClient udp;
-    private bool connected = false;
-    public bool IsConnected { 
-        get { return connected; } 
-    }
+    private bool find = false;
     private IPEndPoint e;
 
     private void Awake()
@@ -51,7 +48,7 @@ public class NetworkManager : MonoBehaviour {
 
     private IEnumerator _coReinitConnection()
     {
-        connected = false;
+        find = false;
         while (enabled)
         {
             var ip = LocalIPAddress().Split('.');
@@ -61,7 +58,7 @@ public class NetworkManager : MonoBehaviour {
                 udp.Send(bytes, bytes.Length, ip[0] + '.' + ip[1] + '.' + ip[2] + '.' + i, port);
             }
             yield return new WaitForSeconds(1.0f);
-            if (connected)
+            if (find)
             {
                 Network.Connect(e.Address.ToString(), portgame);
                 yield break;
@@ -77,7 +74,7 @@ public class NetworkManager : MonoBehaviour {
         int code = BitConverter.ToInt32(receiveBytes, 0);
         Debug.Log("RECEIVED SOMETHING : " + code + " " + (hellocode == code) + " from " + e.Address);
         Debug.Log(e.Address.ToString());
-        connected = true;
+        find = true;
     }
 
     private void OnFailedToConnect(NetworkConnectionError error)
@@ -90,12 +87,14 @@ public class NetworkManager : MonoBehaviour {
     {
         Debug.Log("Disconnected from server: " + info);
         ReinitConnection();
+        GetComponent<Controller>().CancelInfoUpdate();
     }
 
     private void OnConnectedToServer()
     {
         Debug.Log("Connected to server");
         StopCoroutine("_coReinitConnection");
+        GetComponent<Controller>().StartInfoUpdate();
     }
 
     private void OnDisable()

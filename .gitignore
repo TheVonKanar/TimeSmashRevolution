@@ -3,3 +3,6 @@ Temp/
 Remote/Build/
 *.sln
 *.csproj
+*.suo
+Game/obj/
+Remote/obj/
