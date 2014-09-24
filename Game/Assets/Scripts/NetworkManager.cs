@@ -7,9 +7,9 @@ using System.Net.Sockets;
 [RequireComponent(typeof(NetworkView))]
 public class NetworkManager : MonoBehaviour {
 
-    private readonly int port = 1234;
+    private readonly int port = 80;
     private readonly int helloCode = 0xb23f;
-    private readonly int gamePort = 1111;
+    private readonly int gamePort = 443;
 
     private UdpClient udp;
 
@@ -21,8 +21,6 @@ public class NetworkManager : MonoBehaviour {
             udp = new UdpClient(new IPEndPoint(IPAddress.Any, port));
 
         udp.BeginReceive(ReceiveUDP, null);
-
-        Application.runInBackground = true;
     }
 
     private void ReceiveUDP(IAsyncResult ar)

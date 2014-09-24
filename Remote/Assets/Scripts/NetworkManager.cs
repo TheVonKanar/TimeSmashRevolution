@@ -7,9 +7,9 @@ using System.Net.Sockets;
 [RequireComponent(typeof(NetworkView))]
 public class NetworkManager : MonoBehaviour {
 
-    private readonly int port = 1234;
+    private readonly int port = 80;
     private readonly int hellocode = 0xb23f;
-    private readonly int portgame = 1111;
+    private readonly int portgame = 443;
 
     private UdpClient udp;
     private bool find = false;
