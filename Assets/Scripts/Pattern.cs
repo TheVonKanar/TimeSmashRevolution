@@ -1,0 +1,39 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Pattern : MonoBehaviour {
+
+    LevelManager levelManager;
+    Transform myTransform;
+    Collider2D myCollider;
+
+    bool used;
+
+    void Awake()
+    {
+        levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        myTransform = transform;
+        myCollider = collider2D;
+    }
+
+    void Update()
+    {
+        float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect * 2;
+
+        if (!used && (myTransform.position.x + myCollider.bounds.size.x < cameraWidth))
+        {
+            levelManager.CreateNextPattern();
+            used = true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        myTransform.Translate(new Vector3(-levelManager.speed, 0, 0));
+    }
+
+    void OnDisable()
+    {
+        used = false;
+    }
+}

@@ -48,7 +48,7 @@ public class PoolManager : MonoBehaviour {
     }
 
     // Activate a pool object and give it a position
-    public void Create(string name, Vector3 position)
+    public GameObject Create(string name, Vector3 position)
     {
         for (int i = 0; i < poolObjects.Length; i++)
         {
@@ -56,9 +56,16 @@ public class PoolManager : MonoBehaviour {
             {
                 poolObjects[i].SetActive(true);
                 poolObjects[i].transform.position = position;
-                return;
+                return poolObjects[i];
             }
-
         }
+        return null;
     }
+
+    // Deactivate a pool object
+    public void Destroy(GameObject go)
+    {
+        go.SetActive(false);
+    }
+    
 }
