@@ -29,7 +29,7 @@ public class Pattern : MonoBehaviour {
 
     void FixedUpdate()
     {
-        myTransform.Translate(new Vector3(-levelManager.speed, 0, 0));
+        myTransform.Translate(-levelManager.speed * Time.deltaTime, 0, 0);
     }
 
     void OnDisable()
